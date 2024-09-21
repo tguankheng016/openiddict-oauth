@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0F01D1EE-716C-4586-9E5C-19C7542A2A4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictOAuth.Web", "src\OpenIddictOAuth.Web\OpenIddictOAuth.Web.csproj", "{DCBFA0A0-0E5C-49A9-9CBF-FF52C8DC24A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictOAuth.Infrastructure", "src\OpenIddictOAuth.Infrastructure\OpenIddictOAuth.Infrastructure.csproj", "{412E847D-3BB4-4E30-AF45-AC4263187B92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DCBFA0A0-0E5C-49A9-9CBF-FF52C8DC24A3} = {0F01D1EE-716C-4586-9E5C-19C7542A2A4B}
+		{412E847D-3BB4-4E30-AF45-AC4263187B92} = {0F01D1EE-716C-4586-9E5C-19C7542A2A4B}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCBFA0A0-0E5C-49A9-9CBF-FF52C8DC24A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBFA0A0-0E5C-49A9-9CBF-FF52C8DC24A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBFA0A0-0E5C-49A9-9CBF-FF52C8DC24A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCBFA0A0-0E5C-49A9-9CBF-FF52C8DC24A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{412E847D-3BB4-4E30-AF45-AC4263187B92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{412E847D-3BB4-4E30-AF45-AC4263187B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{412E847D-3BB4-4E30-AF45-AC4263187B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{412E847D-3BB4-4E30-AF45-AC4263187B92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
