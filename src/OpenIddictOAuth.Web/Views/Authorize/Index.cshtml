@@ -1,0 +1,76 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.Extensions.Primitives
+@model OpenIddictOAuth.Web.Models.Authorize.AuthorizeViewModel
+
+@if (Model.ClientLogoUrl != null)
+{
+    <div class="client-logo"><img src="@Model.ClientLogoUrl" alt="Logo" /></div>
+}
+
+<div class="login-form">
+    <div class="pb-3 pt-5 text-center">
+        <span class="card-title fs-2 fw-bold">
+            <span class="text-primary">@Model.ClientName</span> wants access to your SSO account
+        </span>
+    </div>
+    <div class="d-flex align-items-center justify-content-center pb-5 fw-bold">
+        @if (!string.IsNullOrEmpty(Model.UserProfileImageUrl))
+        {
+            <img class="w-25px rounded-circle" src="@Model.UserProfileImageUrl" alt="User Image"/>
+        }
+        <span class="card-title fs-6 ms-2">
+            @Model.Username
+        </span>
+    </div>
+    <div class="pb-10">
+        <span class="card-title fs-4 fw-bold">
+            This will allow <span class="text-primary">@Model.ClientName</span> to:
+        </span>
+    </div>
+    <form method="post" asp-action="Callback">
+        @Html.AntiForgeryToken()
+
+        @foreach (var parameter in Context.Request.HasFormContentType ? (IEnumerable<KeyValuePair<string, StringValues>>) Context.Request.Form : Context.Request.Query)
+        {
+            <input type="hidden" name="@parameter.Key" value="@parameter.Value"/>
+        }
+
+        @if (Model.Scopes.Any())
+        {
+            @foreach (var scope in Model.Scopes)
+            {
+                @await Html.PartialAsync("_ScopeListItem", scope)
+            }
+        }
+
+        @if (Model.AllowRememberConsent)
+        {
+            <div class="consent-remember mt-10 pl-5">
+                <label>
+                    <input type="checkbox" name="RememberConsent"/>
+                    <strong>Remember my decision</strong>
+                </label>
+            </div>
+        }
+
+        <div class="d-flex mt-10 w-100">
+            <button
+                type="submit"
+                name="deny"
+                class="btn btn-danger w-100 d-flex flex-grow-1 justify-content-center"
+                value="Deny"
+            >
+                Deny
+            </button>
+            <button
+                type="submit"
+                name="accept"
+                class="btn btn-primary w-100 d-flex flex-grow-1 ms-2 justify-content-center"
+                autofocus
+                value="Accept"
+            >
+                Allow
+            </button>
+        </div>
+    </form>
+</div>

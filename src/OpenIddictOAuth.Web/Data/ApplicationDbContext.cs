@@ -8,7 +8,7 @@ using OpenIddictOAuth.Infrastructure.EfCore;
 
 namespace OpenIddictOAuth.Web.Data;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>, IDbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IDbContext
 {
     private readonly ILogger<ApplicationDbContext>? _logger;
     private IDbContextTransaction _currentTransaction;

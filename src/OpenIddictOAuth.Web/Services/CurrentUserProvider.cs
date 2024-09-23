@@ -5,7 +5,7 @@ namespace OpenIddictOAuth.Web.Services;
 
 public interface ICurrentUserProvider : IScopedDependency
 {
-    long? GetCurrentUserId();
+    Guid? GetCurrentUserId();
 }
 
 public class CurrentUserProvider : ICurrentUserProvider
@@ -18,11 +18,11 @@ public class CurrentUserProvider : ICurrentUserProvider
     }
 
 
-    public long? GetCurrentUserId()
+    public Guid? GetCurrentUserId()
     {
         var nameIdentifier = _httpContextAccessor?.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
         
-        if (!long.TryParse(nameIdentifier, out var userId))
+        if (!Guid.TryParse(nameIdentifier, out var userId))
         {
             return null;
         }

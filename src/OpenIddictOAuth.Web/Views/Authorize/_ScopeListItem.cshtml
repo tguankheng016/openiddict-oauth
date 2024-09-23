@@ -1,0 +1,23 @@
+@model OpenIddictOAuth.Web.Models.Authorize.ScopeViewModel
+<div>
+    <label class="form-check form-check-custom form-check-solid py-1 mb-5">
+        <input
+            type="checkbox"
+            name="ScopesConsented"
+            id="scopes_@Model.Name"
+            value="@Model.Name"
+            checked="@Model.Checked"
+            disabled="@Model.Required"
+            class="form-check-input"
+        />
+        @if (Model.Required)
+        {
+            <input type="hidden"
+                   name="ScopesConsented"
+                   value="@Model.Name"/>
+        }
+        <span class="form-check-label fw-bold">
+            @Model.Description
+        </span>
+    </label>
+</div>
