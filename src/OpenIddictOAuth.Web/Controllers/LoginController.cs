@@ -58,6 +58,4 @@ public class LoginController : OAuthControllerBase
         
         return Json(new { redirectUrl = RedirectionUrlAfterSignIn(returnUrl) });
     }
-    
-   
 }

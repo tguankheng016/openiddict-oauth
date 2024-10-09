@@ -31,7 +31,7 @@ internal class LoginHandler(
     public async Task<LoginResult> Handle(Login request, CancellationToken cancellationToken = default)
     {
         var applicationUser = await userManager.FindByNameAsync(request.UsernameOrEmailAddress) 
-                           ?? await userManager.FindByEmailAsync(request.UsernameOrEmailAddress);
+            ?? await userManager.FindByEmailAsync(request.UsernameOrEmailAddress);
 
         if (applicationUser == null)
         {

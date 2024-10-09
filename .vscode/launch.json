@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Docker Compose",
+            "type": "docker",
+            "request": "attach",
+            "platform": "netCore",
+            "sourceFileMap": {
+                "/src": "${workspaceFolder}"
+            },
+            "containerName": "openiddict-oauth-service-debug",
+            "netCore": {
+                "debuggerPath": "/remote_debugger/vsdbg"
+            },
+            "preLaunchTask": "Compose Up Sleep",
+            "postDebugTask": "Compose Down"
+        },
+        {
+            "name": "OpenIddictOAuth.Web",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/OpenIddictOAuth.Web/OpenIddictOAuth.Web.csproj",
+            "launchConfigurationId": "TargetFramework=;http"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+services:
+  openiddict-oauth-service:
+    container_name: openiddict-oauth-service-debug
+    image: ${DOCKER_REGISTRY-}openiddict-oauth-service-debug:dev
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
