@@ -32,19 +32,23 @@ public static class InfrastructureExtensions
         builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
         builder.Services.AddNpgDbContext<ApplicationDbContext>();
         builder.AddCustomSerilog(env);
-        //builder.Services.AddCustomMediatR();
+        builder.Services.AddCustomMediatR();
         builder.Services.AddValidatorsFromAssembly(assembly);
         builder.Services.AddProblemDetails();
         builder.Services.AddAutoMapper(assembly);
         
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
-        
-        builder.Services.Configure<SecurityStampValidatorOptions>(options =>
-        {
-            options.ValidationInterval = TimeSpan.Zero;
-        });
+        builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(config =>
+            {
+                config.Password.RequiredLength = 6;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+            }
+        )
+        .AddEntityFrameworkStores<ApplicationDbContext>()
+        .AddDefaultTokenProviders();
+
+        builder.Services.AddCustomOpenIddict();
 
         return builder;
     }
@@ -53,14 +57,18 @@ public static class InfrastructureExtensions
     {
         var env = app.Environment;
         
+        app.UseStatusCodePagesWithRedirects("~/Error?statusCode={0}");
+        
+        app.UseExceptionHandler("/Error");
+
         app.UseStaticFiles();
 
         app.UseRouting();
         
         app.UseForwardedHeaders();
-
-        app.UseCustomProblemDetails();
         
+        app.UseCustomProblemDetails();
+
         app.UseSerilogRequestLogging(options =>
         {
             options.EnrichDiagnosticContext = LogEnrichHelper.EnrichFromRequest;

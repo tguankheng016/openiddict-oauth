@@ -1,0 +1,42 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.Extensions.Primitives
+
+<div class="login-form">
+    <div class="d-flex align-items-center justify-content-center pb-3 pt-5">
+        @if (ViewBag.ApplicationLogoUrl != null)
+        {
+            <img class="w-35px rounded-circle" src="@ViewBag.ApplicationLogoUrl" alt="Client Logo"/>
+        }
+        <span class="card-title fs-2 fw-bold ms-2">
+            <span class="text-primary">@ViewBag.ApplicationName</span>
+        </span>
+    </div>
+    <div class="pb-3 pt-5 text-center">
+        <span class="card-title fs-2 fw-bold">
+            Log out of your Atlassian account
+        </span>
+    </div>
+    <div class="d-flex align-items-center justify-content-center pb-5 fw-bold">
+        @if (!string.IsNullOrEmpty(Model.UserProfileImageUrl))
+        {
+            <img class="w-25px rounded-circle" src="@Model.UserProfileImageUrl" alt="User Image"/>
+        }
+        <span class="card-title fs-6 ms-2">
+            @ViewBag.Username
+        </span>
+    </div>
+    <form method="post" asp-action="Logout">
+        @Html.AntiForgeryToken()
+        @foreach (var parameter in Context.Request.HasFormContentType ? (IEnumerable<KeyValuePair<string, StringValues>>)Context.Request.Form : Context.Request.Query)
+        {
+            <input type="hidden" name="@parameter.Key" value="@parameter.Value"/>
+        }
+        <div class="text-center mt-5">
+            <button type="submit" id="kt_sign_out_submit" class="btn btn-primary w-100 mb-5">
+                <span class="indicator-label">Sign Out</span>
+                <span class="indicator-progress">Sign Out...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+            </button>
+        </div>
+    </form>
+</div>

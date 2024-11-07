@@ -32,13 +32,13 @@ public static class InitialData
                 DisplayName = "Flight booking microservice application",
                 RedirectUris =
                 {
-                    new Uri("http://localhost:4200/callback/login"),
-                    new Uri("http://localhost:5173/callback/login")
+                    new Uri("http://localhost:4200/account/callback/login"),
+                    new Uri("http://localhost:5173/account/callback/login")
                 },
                 PostLogoutRedirectUris =
                 {
-                    new Uri("https://localhost:4200/callback/logout"),
-                    new Uri("https://localhost:5173/callback/login")
+                    new Uri("https://localhost:4200/account/callback/logout"),
+                    new Uri("https://localhost:5173/account/callback/logout")
                 },
                 Permissions =
                 {

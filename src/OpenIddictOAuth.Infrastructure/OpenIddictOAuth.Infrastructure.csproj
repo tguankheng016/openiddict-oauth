@@ -11,6 +11,7 @@
         <PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
         <PackageReference Include="FluentValidation" Version="11.9.2" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+        <PackageReference Include="GK-SharedHelper-Ext" Version="1.0.3" />
         <PackageReference Include="Humanizer.Core" Version="2.14.1" />
         <PackageReference Include="MediatR" Version="12.4.1" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />

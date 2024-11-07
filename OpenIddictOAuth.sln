@@ -2,6 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0F01D1EE-716C-4586-9E5C-19C7542A2A4B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FAE3AF44-AB91-41CB-925C-8F0B4BB89655}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictOAuth.Web", "src\OpenIddictOAuth.Web\OpenIddictOAuth.Web.csproj", "{DCBFA0A0-0E5C-49A9-9CBF-FF52C8DC24A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictOAuth.Infrastructure", "src\OpenIddictOAuth.Infrastructure\OpenIddictOAuth.Infrastructure.csproj", "{412E847D-3BB4-4E30-AF45-AC4263187B92}"

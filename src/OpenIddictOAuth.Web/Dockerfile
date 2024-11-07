@@ -7,6 +7,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["src/OpenIddictOAuth.Infrastructure/OpenIddictOAuth.Infrastructure.csproj", "src/OpenIddictOAuth.Infrastructure/"]
 COPY ["src/OpenIddictOAuth.Web/OpenIddictOAuth.Web.csproj", "src/OpenIddictOAuth.Web/"]
 RUN dotnet restore "src/OpenIddictOAuth.Web/OpenIddictOAuth.Web.csproj"
 COPY . .

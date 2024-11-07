@@ -1,0 +1,29 @@
+﻿services:
+  openiddict-oauth-service:
+    user: root
+    image: ${DOCKER_REGISTRY-}openiddict-oauth-service
+    build:
+      context: .
+      dockerfile: src/OpenIddictOAuth.Web/Dockerfile
+    ports:
+      - "41001:8080"
+    networks:
+      - flight-booking-network
+      - postgres-16-network
+      - es-network
+    volumes:
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.aspnet/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
+      - ~/.dotnet/corefx/cryptography/x509stores:/root/.dotnet/corefx/cryptography/x509stores
+
+networks:
+  flight-booking-network:
+    name: flight-booking-network
+    external: true
+  postgres-16-network:
+    name: postgres-16-network
+    external: true
+  es-network:
+    name: es-network
+    external: true

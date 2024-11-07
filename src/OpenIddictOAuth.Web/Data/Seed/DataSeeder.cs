@@ -8,12 +8,12 @@ public class DataSeeder : IDataSeeder
 {
     private readonly IOpenIddictApplicationManager _applicationManager;
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly RoleManager<ApplicationRole> _roleManager;
 
     public DataSeeder(
         IOpenIddictApplicationManager applicationManager, 
         UserManager<ApplicationUser> userManager, 
-        RoleManager<IdentityRole> roleManager
+        RoleManager<ApplicationRole> roleManager
     )
     {
         _applicationManager = applicationManager;
@@ -30,19 +30,24 @@ public class DataSeeder : IDataSeeder
 
     private async Task SeedApplications()
     {
-        await _applicationManager.CreateAsync(InitialData.Applications.First());
+        var initialApp = InitialData.Applications.First();
+        
+        if (await _applicationManager.FindByClientIdAsync(initialApp.ClientId) == null)
+        {
+            await _applicationManager.CreateAsync(initialApp);
+        }
     }
     
     private async Task SeedRoles()
     {
         if (await _roleManager.RoleExistsAsync("Admin") == false)
         {
-            await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            await _roleManager.CreateAsync(new ApplicationRole("Admin"));
         }
 
         if (await _roleManager.RoleExistsAsync("User") == false)
         {
-            await _roleManager.CreateAsync(new IdentityRole("User"));
+            await _roleManager.CreateAsync(new ApplicationRole("User"));
         }
     }
 
