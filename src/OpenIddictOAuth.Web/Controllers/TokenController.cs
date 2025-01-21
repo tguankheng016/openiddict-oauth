@@ -21,9 +21,9 @@ public class TokenController : OAuthControllerBase
     private readonly UserManager<ApplicationUser> _userManager;
 
     public TokenController(
-        IOpenIddictApplicationManager applicationManager, 
-        IOpenIddictAuthorizationManager authorizationManager, 
-        SignInManager<ApplicationUser> signInManager, 
+        IOpenIddictApplicationManager applicationManager,
+        IOpenIddictAuthorizationManager authorizationManager,
+        SignInManager<ApplicationUser> signInManager,
         UserManager<ApplicationUser> userManager
     ) : base(applicationManager)
     {

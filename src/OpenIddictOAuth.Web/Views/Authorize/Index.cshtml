@@ -16,7 +16,7 @@
     <div class="d-flex align-items-center justify-content-center pb-5 fw-bold">
         @if (!string.IsNullOrEmpty(Model.UserProfileImageUrl))
         {
-            <img class="w-25px rounded-circle" src="@Model.UserProfileImageUrl" alt="User Image"/>
+            <img class="w-25px rounded-circle" src="@Model.UserProfileImageUrl" alt="User Image" />
         }
         <span class="card-title fs-6 ms-2">
             @Model.Username
@@ -30,12 +30,13 @@
     <form method="post" asp-action="Callback">
         @Html.AntiForgeryToken()
 
-        @foreach (var parameter in Context.Request.HasFormContentType ? (IEnumerable<KeyValuePair<string, StringValues>>) Context.Request.Form : Context.Request.Query)
+        @foreach (var parameter in Context.Request.HasFormContentType ? (IEnumerable<KeyValuePair<string,
+        StringValues>>)Context.Request.Form : Context.Request.Query)
         {
-            <input type="hidden" name="@parameter.Key" value="@parameter.Value"/>
+            <input type="hidden" name="@parameter.Key" value="@parameter.Value" />
         }
 
-        @if (Model.Scopes.Any())
+        @if (Model.Scopes != null && Model.Scopes.Any())
         {
             @foreach (var scope in Model.Scopes)
             {
@@ -47,28 +48,19 @@
         {
             <div class="consent-remember mt-10 pl-5">
                 <label>
-                    <input type="checkbox" name="RememberConsent"/>
+                    <input type="checkbox" name="RememberConsent" />
                     <strong>Remember my decision</strong>
                 </label>
             </div>
         }
 
         <div class="d-flex mt-10 w-100">
-            <button
-                type="submit"
-                name="deny"
-                class="btn btn-danger w-100 d-flex flex-grow-1 justify-content-center"
-                value="Deny"
-            >
+            <button type="submit" name="deny" class="btn btn-danger w-100 d-flex flex-grow-1 justify-content-center"
+                value="Deny">
                 Deny
             </button>
-            <button
-                type="submit"
-                name="accept"
-                class="btn btn-primary w-100 d-flex flex-grow-1 ms-2 justify-content-center"
-                autofocus
-                value="Accept"
-            >
+            <button type="submit" name="accept"
+                class="btn btn-primary w-100 d-flex flex-grow-1 ms-2 justify-content-center" autofocus value="Accept">
                 Allow
             </button>
         </div>

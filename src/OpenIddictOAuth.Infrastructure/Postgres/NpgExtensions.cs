@@ -27,11 +27,11 @@ public static class NpgExtensions
                 }
             ).UseSnakeCaseNamingConvention();
             // https://github.com/efcore/EFCore.NamingConventions
-            
+
             options.UseOpenIddict();
         });
 
-        services.AddScoped<IDbContext>(provider => provider.GetService<TContext>());
+        services.AddScoped<IDbContext>(provider => provider.GetRequiredService<TContext>());
 
         return services;
     }

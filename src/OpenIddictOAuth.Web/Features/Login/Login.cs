@@ -24,22 +24,21 @@ public class LoginValidator : AbstractValidator<Login>
 // Handlers
 internal class LoginHandler(
     UserManager<ApplicationUser> userManager,
-    SignInManager<ApplicationUser> signInManager,
-    IMapper mapper
+    SignInManager<ApplicationUser> signInManager
 ) : ICommandHandler<Login, LoginResult>
 {
     public async Task<LoginResult> Handle(Login request, CancellationToken cancellationToken = default)
     {
-        var applicationUser = await userManager.FindByNameAsync(request.UsernameOrEmailAddress) 
+        var applicationUser = await userManager.FindByNameAsync(request.UsernameOrEmailAddress)
             ?? await userManager.FindByEmailAsync(request.UsernameOrEmailAddress);
 
         if (applicationUser == null)
         {
             throw new InvalidUserException();
         }
-        
+
         var signInResult = await signInManager.CheckPasswordSignInAsync(applicationUser, request.Password, false);
-        
+
         if (signInResult.IsLockedOut)
         {
             throw new BadRequestException($"Your account has been temporarily locked due to multiple unsuccessful login attempts.");
@@ -49,7 +48,7 @@ internal class LoginHandler(
         {
             throw new InvalidUserException();
         }
-        
+
         var authenticationProperties = new AuthenticationProperties
         {
             IsPersistent = true,
@@ -57,7 +56,7 @@ internal class LoginHandler(
         };
 
         await signInManager.SignInAsync(applicationUser, authenticationProperties);
-        
+
         return new LoginResult();
     }
 }

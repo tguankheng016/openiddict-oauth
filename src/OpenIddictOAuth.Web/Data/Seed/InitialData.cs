@@ -14,7 +14,7 @@ public static class InitialData
         {
             new ApplicationUser
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("c5fb6ddb-3551-487b-a38a-686d27376c30"),
                 FirstName = "Admin",
                 LastName = "Tan",
                 UserName = "admin",
