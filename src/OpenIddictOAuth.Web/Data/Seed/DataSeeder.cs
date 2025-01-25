@@ -9,16 +9,18 @@ public class DataSeeder : IDataSeeder
 	private readonly IOpenIddictApplicationManager _applicationManager;
 	private readonly UserManager<ApplicationUser> _userManager;
 	private readonly RoleManager<ApplicationRole> _roleManager;
+	private readonly IWebHostEnvironment _webHostEnvironment;
 
 	public DataSeeder(
 		IOpenIddictApplicationManager applicationManager,
 		UserManager<ApplicationUser> userManager,
-		RoleManager<ApplicationRole> roleManager
-	)
+		RoleManager<ApplicationRole> roleManager,
+		IWebHostEnvironment webHostEnvironment)
 	{
 		_applicationManager = applicationManager;
 		_userManager = userManager;
 		_roleManager = roleManager;
+		_webHostEnvironment = webHostEnvironment;
 	}
 
 	public async Task SeedAllAsync()
@@ -30,7 +32,7 @@ public class DataSeeder : IDataSeeder
 
 	private async Task SeedApplications()
 	{
-		var initialApps = InitialData.Applications;
+		var initialApps = InitialData.GetApps(_webHostEnvironment.EnvironmentName == "Production");
 
 		foreach (var initialApp in initialApps)
 		{
