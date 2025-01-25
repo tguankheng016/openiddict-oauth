@@ -23,7 +23,7 @@ on:
 jobs:
   build-image-and-deploy:
     permissions: write-all
-    name: Build Docker Image
+    name: Build And Deploy Docker Image
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -47,7 +47,7 @@ jobs:
         with:
           semver_only: true
       - if: ${{ inputs.skip_backend == 'no' || inputs.release_type != 'norelease' }}
-        name: Build Cart Image
+        name: Build OAuth Image
         uses: tguankheng016/shared-actions/.github/actions/build-docker-image@main
         with:
           image-name: ghcr.io/${{ github.repository_owner }}/openiddict-oauth
