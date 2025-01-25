@@ -18,12 +18,12 @@ public class LogoutController : OAuthControllerBase
     private readonly ICurrentUserProvider _currentUserProvider;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
-    
+
     public LogoutController(
-        IOpenIddictApplicationManager applicationManager, 
-        SignInManager<ApplicationUser> signInManager, 
+        IOpenIddictApplicationManager applicationManager,
+        SignInManager<ApplicationUser> signInManager,
         UserManager<ApplicationUser> userManager,
-        IConfiguration configuration, 
+        IConfiguration configuration,
         ICurrentUserProvider currentUserProvider) : base(applicationManager)
     {
         _signInManager = signInManager;
@@ -35,9 +35,9 @@ public class LogoutController : OAuthControllerBase
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var request = HttpContext.GetOpenIddictServerRequest() 
-                      ?? throw new BadRequestException("The OpenID Connect request cannot be retrieved.");
-        
+        var request = HttpContext.GetOpenIddictServerRequest()
+            ?? throw new BadRequestException("The OpenID Connect request cannot be retrieved.");
+
         var result = await HttpContext.AuthenticateAsync(IdentityConstants.ApplicationScheme);
 
         if (result.Principal == null)
@@ -51,13 +51,13 @@ public class LogoutController : OAuthControllerBase
         {
             return RedirectSignOutResult();
         }
-        
+
         // Retrieve the application details from the database.
         var application = await ApplicationManager.FindByClientIdAsync(request.ClientId) ??
-                          throw new InvalidOperationException("DetailsConcerningTheCallingClientApplicationCannotBeFound");
-        
+            throw new InvalidOperationException("DetailsConcerningTheCallingClientApplicationCannotBeFound");
+
         var userProfileUrl = _configuration["UiAvatars:BaseUrl"];
-            
+
         ViewBag.Username = user.Email;
         ViewBag.UserProfileImageUrl = userProfileUrl;
         ViewBag.ApplicationName = await ApplicationManager.GetLocalizedDisplayNameAsync(application);
@@ -80,10 +80,10 @@ public class LogoutController : OAuthControllerBase
             await _userManager.UpdateSecurityStampAsync(user);
             await _signInManager.SignOutAsync();
         }
-        
+
         return RedirectSignOutResult();
     }
-    
+
     private IActionResult RedirectSignOutResult()
     {
         return SignOut(

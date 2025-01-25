@@ -33,7 +33,7 @@ public static class OpenIddictExtensions
                 // Note: this sample only uses the authorization code flow but you can enable
                 // the other flows if you need to support implicit, password or client credentials.
                 options.AllowAuthorizationCodeFlow();
-                
+
                 // Custom Event Handler
                 options.AddEventHandler<ProcessErrorContext>(builder =>
                 {
@@ -52,7 +52,7 @@ public static class OpenIddictExtensions
                     .EnableUserinfoEndpointPassthrough()
                     .EnableStatusCodePagesIntegration()
                     .DisableTransportSecurityRequirement();
-                
+
                 options.SetIssuer(new Uri("http://localhost:41001/"));
             })
             .AddValidation(options =>
@@ -63,28 +63,28 @@ public static class OpenIddictExtensions
                 // Register the ASP.NET Core host.
                 options.UseAspNetCore();
             });
-        
+
         services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath = "/login";
             options.ExpireTimeSpan = TimeSpan.FromDays(30);
             options.SlidingExpiration = true;
         });
-        
+
         return services;
     }
-    
+
     private class MyProcessErrorContextHandler : IOpenIddictServerHandler<ProcessErrorContext>
     {
         public ValueTask HandleAsync(ProcessErrorContext context)
         {
-            if(context.Error != null 
-               && context.EndpointType != OpenIddictServerEndpointType.Userinfo 
-               && context.EndpointType != OpenIddictServerEndpointType.Token)
-            { 
-                throw new BadRequestException(context.ErrorDescription);
+            if (context.Error != null
+                && context.EndpointType != OpenIddictServerEndpointType.Userinfo
+                && context.EndpointType != OpenIddictServerEndpointType.Token)
+            {
+                throw new BadRequestException(context.ErrorDescription ?? "");
             }
-   
+
             return default;
         }
     }

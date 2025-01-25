@@ -5,8 +5,15 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <form id="kt-logout-form" method="post" action="@Url.Action("Logout", "Logout")">
+    @if (ViewBag.HasConnectedApps != null && ViewBag.HasConnectedApps)
+    {
+        <form id="kt-remove-connected-apps" method="post" action="@Url.Action("RemoveConnectedApps", "Home")" class="px-10">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary mt-5 w-100">Remove Connected Apps</button>
+        </form>
+    }
+    <form id="kt-logout-form" method="post" action="@Url.Action("Logout", "Logout")" class="px-10">
         @Html.AntiForgeryToken()
-        <button type="submit" class="btn btn-primary mt-5">Sign out</button>
+        <button type="submit" class="btn btn-primary mt-5 w-100">Sign out</button>
     </form>
 </div>

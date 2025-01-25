@@ -11,16 +11,16 @@ namespace OpenIddictOAuth.Web.Data;
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IDbContext
 {
     private readonly ILogger<ApplicationDbContext>? _logger;
-    private IDbContextTransaction _currentTransaction;
+    private IDbContextTransaction? _currentTransaction;
 
     public ApplicationDbContext(
-        DbContextOptions<ApplicationDbContext> options, 
+        DbContextOptions<ApplicationDbContext> options,
         ILogger<ApplicationDbContext>? logger = null
     ) : base(options)
     {
         _logger = logger;
     }
-    
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

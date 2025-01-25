@@ -1,0 +1,16 @@
+services:
+  openiddict-oauth:
+    image: ghcr.io/tguankheng016/openiddict-oauth:${IMAGE_TAG}
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - PostgresOptions__ConnectionString=${CONN_STRING}
+    ports:
+      - "8075:8080"
+    networks:
+      - infrastructure-network
+
+networks:
+  infrastructure-network:
+    name: infrastructure-network
+    external: true
