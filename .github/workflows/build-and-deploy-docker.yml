@@ -64,7 +64,7 @@ jobs:
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
             cd deployments/openiddict-oauth/docker
             export IMAGE_TAG=${{ steps.get-latest-tag.outputs.tag }}
-            export CONN_STRING=${{ secrets.CONN_STRING }}
+            export $(grep -Eo '^[^#]+' secrets.txt | xargs)
             docker compose -f ./prod.yml pull
             docker compose -f ./prod.yml down
             docker compose -f ./prod.yml up -d
