@@ -8,7 +8,6 @@
     ports:
       - "41001:8080"
     networks:
-      - flight-booking-network
       - postgres-16-network
       - es-network
     volumes:
@@ -18,9 +17,6 @@
       - ~/.dotnet/corefx/cryptography/x509stores:/root/.dotnet/corefx/cryptography/x509stores
 
 networks:
-  flight-booking-network:
-    name: flight-booking-network
-    external: true
   postgres-16-network:
     name: postgres-16-network
     external: true
