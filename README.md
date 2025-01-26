@@ -13,7 +13,7 @@ To get started with this project, you need to have the following installed:
 Clone the Repository
 
 ```bash
-git clone https://github.com/tguankheng016/dotnet-commerce-microservice.git
+git clone https://github.com/tguankheng016/openiddict-oauth.git
 ```
 
 Run the development server:
