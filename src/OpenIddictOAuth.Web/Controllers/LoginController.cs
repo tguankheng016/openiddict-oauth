@@ -11,51 +11,56 @@ namespace OpenIddictOAuth.Web.Controllers;
 [ApiExplorerSettings(IgnoreApi = true)]
 public class LoginController : OAuthControllerBase
 {
-    private readonly IMediator _mediator;
-    private readonly IMapper _mapper;
+	private readonly IMediator _mediator;
+	private readonly IMapper _mapper;
 
-    public LoginController(
-        IOpenIddictApplicationManager applicationManager,
-        IMediator mediator,
-        IMapper mapper
-    ) : base (
-        applicationManager
-    )
-    {
-        _mediator = mediator;
-        _mapper = mapper;
-    }
+	public LoginController(
+		IOpenIddictApplicationManager applicationManager,
+		IMediator mediator,
+		IMapper mapper
+	) : base(
+		applicationManager
+	)
+	{
+		_mediator = mediator;
+		_mapper = mapper;
+	}
 
-    [HttpGet]
-    public async Task<IActionResult> Index()
-    {
-        var model = new LoginViewModel();
-        var returnUrl = Request.Query["returnUrl"].ToString();
-        
-        VerifyReturnUrl(returnUrl);
-        
-        var application = await GetApplicationFromUrlAsync(returnUrl);
-        
-        if (application != null)
-        {
-            ViewBag.ApplicationName = await ApplicationManager.GetDisplayNameAsync(application);
-        }
-        
-        ViewBag.ReturnUrl = string.IsNullOrEmpty(returnUrl) ? returnUrl : Uri.EscapeDataString(returnUrl);
-        
-        return View(model);
-    }
+	[HttpGet]
+	public async Task<IActionResult> Index()
+	{
+		var model = new LoginViewModel()
+		{
+			UsernameOrEmailAddress = "admin",
+			Password = "123qwe"
+		};
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Login(LoginViewModel model)
-    {
-        var returnUrl = Request.Query["returnUrl"].ToString();
+		var returnUrl = Request.Query["returnUrl"].ToString();
 
-        var loginCommand = _mapper.Map<Login>(model);
+		VerifyReturnUrl(returnUrl);
 
-        await _mediator.Send(loginCommand);
-        
-        return Json(new { redirectUrl = RedirectionUrlAfterSignIn(returnUrl) });
-    }
+		var application = await GetApplicationFromUrlAsync(returnUrl);
+
+		if (application != null)
+		{
+			ViewBag.ApplicationName = await ApplicationManager.GetDisplayNameAsync(application);
+		}
+
+		ViewBag.ReturnUrl = string.IsNullOrEmpty(returnUrl) ? returnUrl : Uri.EscapeDataString(returnUrl);
+
+		return View(model);
+	}
+
+	[HttpPost]
+	[ValidateAntiForgeryToken]
+	public async Task<IActionResult> Login(LoginViewModel model)
+	{
+		var returnUrl = Request.Query["returnUrl"].ToString();
+
+		var loginCommand = _mapper.Map<Login>(model);
+
+		await _mediator.Send(loginCommand);
+
+		return Json(new { redirectUrl = RedirectionUrlAfterSignIn(returnUrl) });
+	}
 }
