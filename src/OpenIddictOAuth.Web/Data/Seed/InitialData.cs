@@ -125,13 +125,13 @@ public static class InitialData
 					DisplayName = "Go Commerce Micro",
 					RedirectUris =
 					{
-						new Uri("http://goportal.gktan.com/account/callback/login"),
-						new Uri("http://goshop.gktan.com/account/callback/login"),
+						new Uri("https://goportal.gktan.com/account/callback/login"),
+						new Uri("https://goshop.gktan.com/account/callback/login"),
 					},
 					PostLogoutRedirectUris =
 					{
-						new Uri("http://goportal.gktan.com/account/callback/logout"),
-						new Uri("http://goshop.gktan.com/account/callback/logout")
+						new Uri("https://goportal.gktan.com/account/callback/logout"),
+						new Uri("https://goshop.gktan.com/account/callback/logout")
 					},
 					Permissions =
 					{
